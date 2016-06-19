@@ -1,0 +1,20 @@
+{
+    "extends": "airbnb-base",
+    "env": {
+      "node": true,
+      "mocha": true
+    },
+    "rules": {
+    "camelcase": [1,{ "properties": "always" }],
+    "brace-style": [2, "stroustrup"],
+    "complexity": [2, 5],
+    "max-depth": [2, 2],
+    "max-statements": [2, 10],
+    "no-sync": 2,
+    "import/no-unresolved": 1,
+    "comma-dangle": [0, "never"]
+  },
+  "globals": {
+    "electron": true
+  }
+}
