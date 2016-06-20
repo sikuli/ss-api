@@ -53,5 +53,6 @@ exports.listen = function listen() {
 exports.quit = function quit() {
   if (electron) {
     electron.kill();
+    electron = null;
   }
 };
