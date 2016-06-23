@@ -9,51 +9,54 @@ describe('mouse click events', function describe() {
     desktop.start().then(() => done()).catch((e) => done(e));
   });
 
-  afterEach(() => {
-    desktop.quit();
+  afterEach((done) => {
+    desktop.quit().then(() => done()).catch((e) => done(e));
   });
 
   it('left clicks on a button by its location.', (done) => {
-    desktop.listen()
+    desktop.listen(0)
     .then((result) => {
       if (result.ready) {
         mouseEvents.click(436, 285);
-        return desktop.listen();
+        return desktop.listen(1);
       }
       throw new Error('Desktop window is not ready');
     })
     .then((result) => {
-      expect(result).to.deep.equal({ type: 'leftClick', id: 'btn-1' });
+      expect(result).to.have.lengthOf(1);
+      expect(result).to.deep.equal([{ type: 'leftClick', id: 'btn-1' }]);
       done();
     })
     .catch((e) => done(e));
   });
 
   it('right clicks on a button by its location.', (done) => {
-    desktop.listen().then((result) => {
+    desktop.listen(0).then((result) => {
       if (result.ready) {
         mouseEvents.rightClick(568, 273);
-        return desktop.listen();
+        return desktop.listen(1);
       }
       throw new Error('Desktop window is not ready');
     })
     .then((result) => {
-      expect(result).to.deep.equal({ type: 'rightClick', id: 'btn-2' });
+      expect(result).to.have.lengthOf(1);
+      expect(result).to.deep.equal([{ type: 'rightClick', id: 'btn-2' }]);
       done();
     })
     .catch((e) => done(e));
   });
 
   it('double clicks on a button by its location.', (done) => {
-    desktop.listen().then((result) => {
+    desktop.listen(0).then((result) => {
       if (result.ready) {
         mouseEvents.doubleClick(710, 273);
-        return desktop.listen();
+        return desktop.listen(1);
       }
       throw new Error('Desktop window is not ready');
     })
     .then((result) => {
-      expect(result).to.deep.equal({ type: 'doubleClick', id: 'btn-3' });
+      expect(result).to.have.lengthOf(1);
+      expect(result).to.deep.equal([{ type: 'doubleClick', id: 'btn-3' }]);
       done();
     })
     .catch((e) => done(e));
