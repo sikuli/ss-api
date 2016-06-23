@@ -18,3 +18,8 @@ document.onmousedown = (event) => {
 document.ondblclick = (event) => {
   ipcRenderer.send('on-mouse-event', `{ "type": "doubleClick", "id": "${event.target.id}"}`);
 };
+
+document.onkeydown = (event) => {
+  ipcRenderer.send('on-keyboard-event',
+  `{ "type": "keydown", "key": "${event.key}", "id": "${event.target.id}"}`);
+};
