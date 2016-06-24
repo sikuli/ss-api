@@ -21,7 +21,14 @@ function processData(data) {
     eventEmitter.emit('clientIslistening');
   }
   else {
-    response.push(JSON.parse(message));
+    const messages = message.split('}{');
+    if (messages.length > 1) {
+      const m = `[${messages.join('},{')}]`;
+      JSON.parse(m).forEach((item) => response.push(item));
+    }
+    else {
+      response.push(JSON.parse(message));
+    }
     eventEmitter.emit('itemAdded');
   }
 }
@@ -55,10 +62,12 @@ exports.start = function start() {
 */
 exports.listen = function listen(actionCount) {
   return new Promise((resolve, reject) => {
-    if (electron) {
+    if (electron && actionCount === 0) {
       eventEmitter.on('clientIslistening', () => {
         resolve({ ready: true });
       });
+    }
+    else if (electron && actionCount > 0) {
       // communicate with the child process via the TCP socket
       eventEmitter.on('itemAdded', () => {
         if (actionCount === response.length) {
